@@ -1,16 +1,20 @@
+from stats import * 
+import sys
+
+
 def main():
-    book_path = "./books/frankenstein.txt"
+    print(sys.argv)
+    if len(sys.argv) != 2:
+         print("Usage: python3 main.py <path_to_book>")
+         sys.exit(1)
+    
+    book_path = sys.argv[1]
     book_text = get_book_text(book_path)
 
     word_count = number_of_words(book_text)
     # number_of_characters(book_text)
     character_count = number_of_characters2(book_text)
     book_report_output(book_path, word_count, character_count)
-
-
-def number_of_words(book_content):
-    words = book_content.split()
-    return len(words)
 
 def get_book_text(path):
     with open(path) as f:
@@ -45,12 +49,12 @@ def number_of_characters2(book_content): # optimized
 def book_report_output(path, words, characters):
     book_name = path.split("/")
     
-    print(f"--- This is a book report of {book_name[2]} ---")
-    print(f"The book contains {words} words")
+    print(f"--- This is a book report of {book_name[1]} ---")
+    print(f"{words} words found in the document")
     print("")
     for key in characters:
          if key.isalpha():
-            print(f"The character '{key}' is found {characters[key]} times")
+            print(f"{key}: {characters[key]}")
 
 
 main()
